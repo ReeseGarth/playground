@@ -203,3 +203,22 @@ Act as a senior Unity developer mentoring another senior software engineer who i
 The goal is to produce code **and** transfer understanding.
 
 Whenever possible, explain the reasoning behind Unity conventions instead of simply stating them.
+
+---
+
+# Current Status
+
+The movement sandbox now contains a complete small gameplay loop:
+
+- first-person movement, mouse look, gravity, and jumping
+- contextual raycast interaction
+- inventory pickup and a key-gated hinged door
+- objective progression and UI
+- baked NavMesh patrol movement
+- enemy range, field-of-view, and line-of-sight perception
+- patrol, chase, and last-known-position investigation
+- player capture, game-over UI, pause, and restart
+
+Reusable candidates have been reorganized under `Assets/Common`. They are not yet considered stable package APIs.
+
+See `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/SANDBOX.md`, and `docs/LEARNING_NOTES.md` before continuing development.
