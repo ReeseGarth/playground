@@ -31,6 +31,7 @@ The guiding process remains:
 - Ordered patrol routes with any number of scene-authored waypoints.
 - Arrival-based investigation scanning.
 - Event-driven enemy state presentation using color and spatial audio cues.
+- Semantic sound stimuli, distance-based enemy hearing, sound-driven investigation, and player landing noise.
 - Player capture, pause, and scene restart.
 - Reorganization of reusable candidates under `Assets/Common`.
 
@@ -54,31 +55,13 @@ one coherent behavior rather than an entire production-ready system.
 
 ## Near-term milestones
 
-### 1. Semantic sound stimulus
-
-- Represent a gameplay sound as a position and hearing radius.
-- Emit a manually triggered test sound.
-- Visualize its radius for debugging.
-
-### 2. Enemy hearing
-
-- Add an enemy hearing component.
-- React only when a sound occurs within hearing range.
-- Send the enemy to investigate the sound position.
-
-### 3. Player-generated noise
-
-- Connect semantic sound emission to one real player action.
-- Tune noise radius independently from audible volume.
-- Verify that walls and distance behave according to the chosen hearing rules.
-
-### 4. AI logic test seam
+### 1. AI logic test seam
 
 - Identify state-transition logic that can be separated from scene components.
 - Add the first lightweight automated tests around that logic.
 - Keep NavMesh and physics integration testing in the sandbox.
 
-### 5. Night Shift vertical-slice kickoff
+### 2. Night Shift vertical-slice kickoff
 
 - Define one small objective-driven scenario.
 - Create a Night Shift scene separate from the movement sandbox.
@@ -98,6 +81,7 @@ one coherent behavior rather than an entire production-ready system.
 
 ## Ideas retained for later
 
+- Scale landing-noise radius from fall or impact speed so larger drops create stronger stimuli.
 - Scent trails made from decaying spatial samples.
 - Multiple scent types with different monster preferences.
 - Scent masking, contamination, cleaning chemicals, and environmental dispersal.
@@ -112,5 +96,6 @@ one coherent behavior rather than an entire production-ready system.
 - AI performs one full scan, then forgets the player without a broader search strategy.
 - AI has direct serialized references to one player and a scene-authored patrol route.
 - Audible enemy cues do not yet represent sounds that AI can perceive.
+- Landing noise uses a fixed hearing radius regardless of fall distance or impact speed.
 - Scene references are intentionally Inspector-wired and do not yet have validation tooling.
 - The current components are reusable candidates, not a stable public package API.

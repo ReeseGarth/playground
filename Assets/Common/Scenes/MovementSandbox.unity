@@ -3072,6 +3072,7 @@ GameObject:
   - component: {fileID: 1643010181}
   - component: {fileID: 1643010182}
   - component: {fileID: 1643010183}
+  - component: {fileID: 1643010184}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3159,6 +3160,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad83db0732b7aa4e90bd8abbdef160a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCapture
+--- !u!114 &1643010184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643010178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc78e70fa3864f4fb4d51d7a0aa2b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundStimulusEmitter
+  radius: 5
 --- !u!1 &1668930628
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,6 +3622,7 @@ GameObject:
   - component: {fileID: 1973874348}
   - component: {fileID: 1973874350}
   - component: {fileID: 1973874349}
+  - component: {fileID: 1973874351}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -3915,6 +3930,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1973874351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973874339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fe0980c0ec70b47abb52131e75ef5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHearing
 --- !u!1 &2012479569
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,6 +4064,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupInteractable
   itemId: key
+--- !u!1 &2109934272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109934274}
+  - component: {fileID: 2109934275}
+  - component: {fileID: 2109934276}
+  m_Layer: 0
+  m_Name: TestSoundEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2109934274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109934272}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0.5, z: -5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2109934275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109934272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc78e70fa3864f4fb4d51d7a0aa2b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundStimulusEmitter
+  radius: 5
+--- !u!114 &2109934276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109934272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0176becfa40d04a91c5075f4162ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestSoundStimulusInput
+  testKey: 34
 --- !u!1 &2112453392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,3 +4184,4 @@ SceneRoots:
   - {fileID: 1194620513}
   - {fileID: 1004022259}
   - {fileID: 421602597}
+  - {fileID: 2109934274}

@@ -16,6 +16,7 @@ The scene is included in build settings so `GameOverUI` can reload it by build i
 - Mouse: look
 - `Space`: jump
 - `E`: interact
+- `T`: emit a test sound stimulus
 - `R`: restart when caught
 
 ## Important hierarchy relationships
@@ -24,6 +25,7 @@ The scene is included in build settings so `GameOverUI` can reload it by build i
 Player
 ├── CharacterController
 ├── PlayerMovement
+├── SoundStimulusEmitter
 ├── PlayerInventory
 ├── PlayerCapture
 └── CameraPivot
@@ -37,11 +39,12 @@ Environment
 └── interactable test objects
 
 AI
-├── Enemy
-└── PatrolPoints
+├── Enemy (including EnemyHearing)
+├── PatrolPoints
     ├── PointA
     ├── PointB
     └── PointC
+└── TestSoundEmitter
 
 Objectives
 └── ExitZone
@@ -93,5 +96,10 @@ The Canvas uses screen-space UI. The interaction prompt is centered below the re
 9. Losing sight causes last-known-position investigation.
 10. Arrival starts a visible full scan that can reacquire the player.
 11. State colors and spatial voice cues match patrol, chase, investigation, and scanning.
-12. Reaching the player shows game-over UI and pauses movement.
-13. `R` reloads the sandbox and resets runtime state.
+12. Pressing `T` emits a semantic sound stimulus at the test emitter.
+13. Selecting the test emitter shows its cyan hearing radius.
+14. An in-range sound sends the enemy to investigate unless it is already chasing.
+15. Landing emits one player stimulus; takeoff, walking, and startup do not.
+16. Walls do not currently block sound, while emitters outside the radius are ignored.
+17. Reaching the player shows game-over UI and pauses movement.
+18. `R` reloads the sandbox and resets runtime state.

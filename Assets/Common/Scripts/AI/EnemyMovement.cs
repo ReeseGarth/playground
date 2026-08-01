@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
     public EnemyState CurrentState { get; private set; }
     public event Action<EnemyState> StateChanged;
     private Transform patrolTarget;
-    private Vector3 lastKnownPlayerPosition;
+    private Vector3 investigationPosition;
     private float investigationTimer;
     private int patrolPointIndex;
 
@@ -132,16 +132,16 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        lastKnownPlayerPosition = player.position;
-        agent.SetDestination(lastKnownPlayerPosition);
+        investigationPosition = player.position;
+        agent.SetDestination(investigationPosition);
     }
 
     private void EnterChasingState()
     {
         ChangeState(EnemyState.Chasing);
         Debug.Log("Enemy detected player, chasing");
-        lastKnownPlayerPosition = player.position;
-        agent.SetDestination(lastKnownPlayerPosition);
+        investigationPosition = player.position;
+        agent.SetDestination(investigationPosition);
     }
 
     private void EnterPatrollingState()
@@ -161,7 +161,7 @@ public class EnemyMovement : MonoBehaviour
     {
         ChangeState(EnemyState.Investigating);
 
-        agent.SetDestination(lastKnownPlayerPosition);
+        agent.SetDestination(investigationPosition);
 
         Debug.Log("Enemy entered investigating state");
     }
@@ -183,6 +183,17 @@ public class EnemyMovement : MonoBehaviour
         {
             EnterScanningState();
         }
+    }
+
+    public void Investigate(Vector3 position)
+    {
+        if (CurrentState == EnemyState.Chasing)
+        {
+            return;
+        }
+
+        investigationPosition = position;
+        EnterInvestigatingState();
     }
 
     private void EnterScanningState()

@@ -43,6 +43,16 @@
 - A property is suitable when data depends only on the object; a method is suitable when calculating it requires interaction context.
 - Events communicate that something happened without coupling the publisher to its consumers.
 - The null-conditional invocation `ItemAdded?.Invoke(itemId)` skips invocation when there are no subscribers; it does not control duplicate inventory behavior.
+- A static event can broadcast a transient gameplay fact without scene references between every publisher and listener, but listeners must still unsubscribe when disabled.
+
+## Semantic audio
+
+- Gameplay sound data can be independent of audible presentation: AI can reason about a stimulus position and radius without requiring an `AudioClip` or `AudioSource`.
+- A small immutable `readonly struct` is suitable for transient value-like event data that does not need a GameObject or Unity lifecycle.
+- `OnDrawGizmosSelected` provides editor-only spatial diagnostics without adding player-facing geometry.
+- Separating a reusable emitter from temporary keyboard input lets player, environment, and test components share one publishing capability.
+- Comparing the previous and current grounded states detects landing as a transition rather than treating a button press as the gameplay event.
+- A first-sample guard prevents startup state from being mistaken for an airborne-to-grounded transition.
 
 ## Navigation and AI
 

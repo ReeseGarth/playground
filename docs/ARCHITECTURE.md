@@ -20,6 +20,7 @@ Assets/Common/
 │   ├── Interaction/
 │   ├── Inventory/
 │   ├── Objectives/
+│   ├── Perception/
 │   └── Player/
 └── UI/
 ```
@@ -64,6 +65,7 @@ The door behavior lives on a hinge parent while the visible mesh and collider li
 AI responsibilities are composed from:
 
 - `PlayerDetection`: range, field of view, line of sight, and acquisition/tracking angles.
+- `EnemyHearing`: semantic sound range checks and investigation requests.
 - `EnemyMovement`: patrol, chase, investigation, scanning state, and NavMesh destinations.
 - `EnemyCapture`: capture proximity and authorization through current detection.
 - `NavMeshAgent`: path calculation, steering, and obstacle avoidance.
@@ -79,6 +81,14 @@ the state machine.
 ### Capture and game over
 
 `PlayerCapture` owns the captured state and publishes one event. `GameOverUI` reacts by showing UI, pausing scaled time, releasing the cursor, and reloading the active build scene on restart.
+
+### Semantic sound stimuli
+
+`SoundStimulus` represents gameplay sound as an immutable world position and hearing radius. This semantic data is independent of `AudioClip` and `AudioSource`, which provide player-facing audio presentation.
+
+`SoundStimulusEmitter` publishes stimuli through a static event so hearing components can observe sounds without direct references to every emitter. `EnemyHearing` filters those stimuli by distance and asks `EnemyMovement` to investigate accepted positions; active visual pursuit retains priority over sound.
+
+The player emits a fixed-radius stimulus when transitioning from airborne to grounded. A separate `TestSoundStimulusInput` adapter provides manual keyboard emission in the sandbox, while a selected-object Gizmo visualizes each emitter's configured radius. Walls currently do not occlude semantic sound.
 
 ### Visual debugging
 

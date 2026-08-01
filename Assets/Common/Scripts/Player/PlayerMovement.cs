@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(SoundStimulusEmitter))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField, Min(0f)]
@@ -16,10 +17,14 @@ public class PlayerMovement : MonoBehaviour
     private float verticalVelocity;
 
     private CharacterController characterController;
+    private SoundStimulusEmitter soundStimulusEmitter;
+    private bool wasGrounded;
+    private bool hasGroundedState;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        soundStimulusEmitter = GetComponent<SoundStimulusEmitter>();
     }
 
     private void Update()
@@ -73,5 +78,25 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(
             velocity * Time.deltaTime
         );
+
+        UpdateGroundedState();
+    }
+
+    private void UpdateGroundedState()
+    {
+        bool isGrounded = characterController.isGrounded;
+
+        bool landed =
+            hasGroundedState &&
+            !wasGrounded &&
+            isGrounded;
+
+        wasGrounded = isGrounded;
+        hasGroundedState = true;
+
+        if (landed)
+        {
+            soundStimulusEmitter.Emit();
+        }
     }
 }
