@@ -40,7 +40,8 @@ AI
 ├── Enemy
 └── PatrolPoints
     ├── PointA
-    └── PointB
+    ├── PointB
+    └── PointC
 
 Objectives
 └── ExitZone
@@ -89,6 +90,8 @@ The Canvas uses screen-space UI. The interaction prompt is centered below the re
 6. The exit trigger completes the objective.
 7. The enemy patrols around baked obstacles.
 8. Detection respects range, view angle, and wall occlusion.
-9. Losing sight causes last-known-position investigation, then patrol.
-10. Reaching the player shows game-over UI and pauses movement.
-11. `R` reloads the sandbox and resets runtime state.
+9. Losing sight causes last-known-position investigation.
+10. Arrival starts a visible full scan that can reacquire the player.
+11. State colors and spatial voice cues match patrol, chase, investigation, and scanning.
+12. Reaching the player shows game-over UI and pauses movement.
+13. `R` reloads the sandbox and resets runtime state.

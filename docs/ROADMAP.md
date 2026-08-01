@@ -28,6 +28,9 @@ The guiding process remains:
 - NavMesh baking and agent-driven patrol movement.
 - AI perception using distance, field of view, line of sight, and tracking hysteresis.
 - Patrol, chase, and last-known-position investigation states.
+- Ordered patrol routes with any number of scene-authored waypoints.
+- Arrival-based investigation scanning.
+- Event-driven enemy state presentation using color and spatial audio cues.
 - Player capture, pause, and scene restart.
 - Reorganization of reusable candidates under `Assets/Common`.
 
@@ -42,14 +45,45 @@ Explore
   -> restart after capture
 ```
 
-## Near-term roadmap
+## Milestone cadence
 
-1. Add enemy state presentation and basic audio cues.
-2. Replace two fixed patrol fields with an ordered waypoint collection.
-3. Add simple investigation scanning at the last known position.
-4. Introduce sound as semantic AI perception, separate from audible playback.
-5. Add lightweight automated tests where logic becomes sufficiently independent of scene setup.
-6. Begin a small Night Shift vertical-slice scene only after the reusable sandbox remains understandable.
+Near-term work is divided into small, playable checkpoints. Each checkpoint should
+be tested in the sandbox, reviewed as an uncommitted diff, documented, and committed
+before beginning the next one. A checkpoint should usually introduce one concept or
+one coherent behavior rather than an entire production-ready system.
+
+## Near-term milestones
+
+### 1. Semantic sound stimulus
+
+- Represent a gameplay sound as a position and hearing radius.
+- Emit a manually triggered test sound.
+- Visualize its radius for debugging.
+
+### 2. Enemy hearing
+
+- Add an enemy hearing component.
+- React only when a sound occurs within hearing range.
+- Send the enemy to investigate the sound position.
+
+### 3. Player-generated noise
+
+- Connect semantic sound emission to one real player action.
+- Tune noise radius independently from audible volume.
+- Verify that walls and distance behave according to the chosen hearing rules.
+
+### 4. AI logic test seam
+
+- Identify state-transition logic that can be separated from scene components.
+- Add the first lightweight automated tests around that logic.
+- Keep NavMesh and physics integration testing in the sandbox.
+
+### 5. Night Shift vertical-slice kickoff
+
+- Define one small objective-driven scenario.
+- Create a Night Shift scene separate from the movement sandbox.
+- Reuse Common components without treating them as stable package APIs.
+- Feed real level requirements back into the sandbox components deliberately.
 
 ## Longer-term systems
 
@@ -75,7 +109,8 @@ Explore
 - Inventory uses case-sensitive string IDs and supports membership, not quantities.
 - The door assumes its authored starting rotation is closed.
 - The dynamic door is not yet represented as a runtime NavMesh obstacle or AI-operable door.
-- AI forgets the player after a short investigation and does not search its surroundings.
-- AI has direct serialized references to one player and two patrol points.
+- AI performs one full scan, then forgets the player without a broader search strategy.
+- AI has direct serialized references to one player and a scene-authored patrol route.
+- Audible enemy cues do not yet represent sounds that AI can perceive.
 - Scene references are intentionally Inspector-wired and do not yet have validation tooling.
 - The current components are reusable candidates, not a stable public package API.

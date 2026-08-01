@@ -64,11 +64,17 @@ The door behavior lives on a hinge parent while the visible mesh and collider li
 AI responsibilities are composed from:
 
 - `PlayerDetection`: range, field of view, line of sight, and acquisition/tracking angles.
-- `EnemyMovement`: patrol, chase, investigation state, and NavMesh destinations.
+- `EnemyMovement`: patrol, chase, investigation, scanning state, and NavMesh destinations.
 - `EnemyCapture`: capture proximity and authorization through current detection.
 - `NavMeshAgent`: path calculation, steering, and obstacle avoidance.
+- `EnemyStateIndicator`: visual presentation of state changes.
+- `EnemyStateAudio`: spatial audio presentation of state changes.
 
-State transitions are explicit through a private enum. Last-known-position investigation prevents immediate omniscient tracking after line of sight is lost.
+State transitions are explicit through `EnemyState` and published through an event.
+Last-known-position investigation prevents immediate omniscient tracking after line
+of sight is lost, while a distinct scanning state represents the stationary search
+after arrival. Presentation components observe those decisions without controlling
+the state machine.
 
 ### Capture and game over
 

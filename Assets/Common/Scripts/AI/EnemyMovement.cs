@@ -1,23 +1,22 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+
+public enum EnemyState
+{
+    Patrolling,
+    Chasing,
+    Investigating,
+    Scanning
+}
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(PlayerDetection))]
 public class EnemyMovement : MonoBehaviour
 {
-    private enum State
-    {
-        Patrolling,
-        Chasing,
-        Investigating
-    }
-
     [Header("Patrol")]
     [SerializeField]
-    private Transform pointA;
-
-    [SerializeField]
-    private Transform pointB;
+    private Transform[] patrolPoints;
 
     [Header("Targets")]
     [SerializeField]
@@ -37,15 +36,20 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField, Min(0f)]
     private float investigationDuration = 3f;
 
+    [SerializeField, Min(0f)]
+    private float investigationRotationSpeed = 120f;
+
     // Component dependencies
     private NavMeshAgent agent;
     private PlayerDetection playerDetection;
 
     // Runtime state
-    private State state;
+    public EnemyState CurrentState { get; private set; }
+    public event Action<EnemyState> StateChanged;
     private Transform patrolTarget;
     private Vector3 lastKnownPlayerPosition;
     private float investigationTimer;
+    private int patrolPointIndex;
 
     private void Awake()
     {
@@ -59,24 +63,41 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        state = State.Patrolling;
-        SetPatrolTarget(pointA);
+        if (patrolPoints.Length == 0)
+        {
+            Debug.LogError(
+                "Enemy requires at least one patrol point.",
+                this
+            );
+
+            enabled = false;
+            return;
+        }
+
+        ChangeState(EnemyState.Patrolling);
+
+        patrolPointIndex = 0;
+        SetPatrolTarget(patrolPoints[patrolPointIndex]);
     }
 
     private void Update()
     {
-        switch (state)
+        switch (CurrentState)
         {
-            case State.Patrolling:
+            case EnemyState.Patrolling:
                 UpdatePatrolling();
                 break;
 
-            case State.Chasing:
+            case EnemyState.Chasing:
                 UpdateChasing();
                 break;
 
-            case State.Investigating:
+            case EnemyState.Investigating:
                 UpdateInvestigating();
+                break;
+
+            case EnemyState.Scanning:
+                UpdateScanning();
                 break;
         }
     }
@@ -96,10 +117,10 @@ public class EnemyMovement : MonoBehaviour
 
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            Transform nextTarget =
-                patrolTarget == pointA ? pointB : pointA;
+            patrolPointIndex =
+                (patrolPointIndex + 1) % patrolPoints.Length;
 
-            SetPatrolTarget(nextTarget);
+            SetPatrolTarget(patrolPoints[patrolPointIndex]);
         }
     }
 
@@ -117,7 +138,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void EnterChasingState()
     {
-        state = State.Chasing;
+        ChangeState(EnemyState.Chasing);
         Debug.Log("Enemy detected player, chasing");
         lastKnownPlayerPosition = player.position;
         agent.SetDestination(lastKnownPlayerPosition);
@@ -125,7 +146,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void EnterPatrollingState()
     {
-        state = State.Patrolling;
+        ChangeState(EnemyState.Patrolling);
         Debug.Log("Enemy lost player, returning to patrol");
         agent.SetDestination(patrolTarget.position);
     }
@@ -138,8 +159,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void EnterInvestigatingState()
     {
-        state = State.Investigating;
-        investigationTimer = 0f;
+        ChangeState(EnemyState.Investigating);
 
         agent.SetDestination(lastKnownPlayerPosition);
 
@@ -159,10 +179,32 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        if (agent.remainingDistance > agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
+            EnterScanningState();
+        }
+    }
+
+    private void EnterScanningState()
+    {
+        ChangeState(EnemyState.Scanning);
+        investigationTimer = 0f;
+
+        Debug.Log("Enemy started scanning");
+    }
+
+    private void UpdateScanning()
+    {
+        if (playerDetection.IsPlayerDetected)
+        {
+            EnterChasingState();
             return;
         }
+
+        transform.Rotate(
+            Vector3.up,
+            investigationRotationSpeed * Time.deltaTime
+        );
 
         investigationTimer += Time.deltaTime;
 
@@ -170,5 +212,11 @@ public class EnemyMovement : MonoBehaviour
         {
             EnterPatrollingState();
         }
+    }
+
+    private void ChangeState(EnemyState newState)
+    {
+        CurrentState = newState;
+        StateChanged?.Invoke(CurrentState);
     }
 }
