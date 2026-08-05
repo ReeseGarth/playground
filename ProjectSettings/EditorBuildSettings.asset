@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Common/Scenes/MovementSandbox.unity
     guid: 494fa97c65d31ae4295b039f8e9d9d00
+  - enabled: 1
+    path: Assets/NightShift/Scenes/NightShiftVerticalSlice.unity
+    guid: a7944878df54a624785c5771daf84653
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

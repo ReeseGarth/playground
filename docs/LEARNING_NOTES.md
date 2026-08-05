@@ -68,6 +68,9 @@
 - Generic names do not guarantee generic behavior; current components still assume specific input, hierarchy, physics, and UI choices.
 - Reuse should be validated by a second consumer before extracting a stable package.
 - Prefer several focused capability packages over one universal gameplay framework.
+- Duplicating a Unity scene copies its asset references; referenced data such as a baked NavMesh must be made independent before either scene is rebaked.
+- A real second consumer reveals hidden assumptions: the Night Shift scene showed that objective state was reusable while objective wording needed per-scene configuration.
+- Graybox geometry should first justify itself through gameplay effects such as collision, navigation, cover, or sight-line control.
 
 ## Automated testing
 

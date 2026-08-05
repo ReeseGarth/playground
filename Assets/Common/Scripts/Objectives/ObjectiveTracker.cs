@@ -12,6 +12,20 @@ public class ObjectiveTracker : MonoBehaviour
     [SerializeField]
     private string requiredItemId = "key";
 
+    [Header("Objective Text")]
+
+    [SerializeField]
+    private string findItemText =
+        "Objective: Find the key";
+
+    [SerializeField]
+    private string exitText =
+        "Objective: Exit through the door";
+
+    [SerializeField]
+    private string completeText =
+        "Objective complete";
+
     private bool isExitComplete;
 
     private void OnEnable()
@@ -55,17 +69,15 @@ public class ObjectiveTracker : MonoBehaviour
     {
         if (isExitComplete)
         {
-            objectiveText.text = "Objective complete";
+            objectiveText.text = completeText;
         }
         else if (playerInventory.Contains(requiredItemId))
         {
-            objectiveText.text =
-                "Objective: Exit through the door";
+            objectiveText.text = exitText;
         }
         else
         {
-            objectiveText.text =
-                "Objective: Find the key";
+            objectiveText.text = findItemText;
         }
     }
 }

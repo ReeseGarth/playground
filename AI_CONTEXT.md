@@ -219,6 +219,9 @@ The movement sandbox now contains a complete small gameplay loop:
 - ordered waypoint patrol, chase, last-known-position investigation, and scanning
 - event-driven enemy state colors and spatial voice cues
 - player capture, game-over UI, pause, and restart
+- semantic sound, enemy hearing, and landing-generated noise
+- Edit Mode tests for a pure enemy state-transition rule
+- a separate Night Shift vertical-slice graybox with independent NavMesh data
 
 Reusable candidates have been reorganized under `Assets/Common`. They are not yet considered stable package APIs.
 

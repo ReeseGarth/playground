@@ -33,6 +33,7 @@ The guiding process remains:
 - Event-driven enemy state presentation using color and spatial audio cues.
 - Semantic sound stimuli, distance-based enemy hearing, sound-driven investigation, and player landing noise.
 - A runtime assembly boundary and Edit Mode tests for sound-driven enemy state transitions.
+- A separate Night Shift vertical-slice scene with independent navigation data, configurable objective copy, and an initial stealth graybox.
 - Player capture, pause, and scene restart.
 - Reorganization of reusable candidates under `Assets/Common`.
 
@@ -56,15 +57,11 @@ one coherent behavior rather than an entire production-ready system.
 
 ## Near-term milestones
 
-### 1. Night Shift vertical-slice kickoff
-
-- Define one small objective-driven scenario.
-- Create a Night Shift scene separate from the movement sandbox.
-- Reuse Common components without treating them as stable package APIs.
-- Feed real level requirements back into the sandbox components deliberately.
+The next product milestone should be selected from playtesting the Night Shift blockout. The first bespoke requirement should strengthen the night-shift fantasy without expanding into several new systems at once.
 
 ## Longer-term systems
 
+- Repository-level `.editorconfig` and automated formatting verification.
 - More expressive inventory and item definitions.
 - Multiple objectives and objective composition.
 - Doors that coordinate with navigation at runtime.

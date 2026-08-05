@@ -29,6 +29,8 @@ Stable cross-project sharing should eventually use focused Unity Package Manager
 
 `NightShift.Common` defines the runtime assembly boundary for scripts under `Assets/Common/Scripts`. The Edit Mode test assembly references this runtime assembly, while production code has no dependency on tests.
 
+`Assets/NightShift` is the first product-specific consumer of Common components. Its scene owns its layout and baked NavMesh data independently from the Common movement sandbox. The second consumer exposed hard-coded objective copy, so `ObjectiveTracker` now keeps state logic shared while allowing each scene to serialize its own presentation text.
+
 ## Key decisions
 
 ### Character movement
