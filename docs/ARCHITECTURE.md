@@ -27,6 +27,8 @@ Assets/Common/
 
 Stable cross-project sharing should eventually use focused Unity Package Manager packages. Extraction should follow a genuine second consumer so hidden assumptions can be discovered first.
 
+`NightShift.Common` defines the runtime assembly boundary for scripts under `Assets/Common/Scripts`. The Edit Mode test assembly references this runtime assembly, while production code has no dependency on tests.
+
 ## Key decisions
 
 ### Character movement
@@ -78,6 +80,8 @@ of sight is lost, while a distinct scanning state represents the stationary sear
 after arrival. Presentation components observe those decisions without controlling
 the state machine.
 
+`EnemyStateTransitions` owns the pure sound-priority rule used by `EnemyMovement`: sound leads to investigation unless the enemy is already chasing. Keeping this decision free of GameObjects, NavMesh, and physics makes it suitable for fast Edit Mode tests while sandbox testing continues to verify Unity wiring and navigation behavior.
+
 ### Capture and game over
 
 `PlayerCapture` owns the captured state and publishes one event. `GameOverUI` reacts by showing UI, pausing scaled time, releasing the cursor, and reloading the active build scene on restart.
@@ -108,7 +112,6 @@ These diagnostics are development aids and are not player-facing presentation.
 
 ## Deferred decisions
 
-- Assembly definitions.
 - ScriptableObject-backed item and enemy configuration.
 - A general-purpose state-machine framework.
 - Dependency injection containers.

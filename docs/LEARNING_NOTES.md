@@ -68,3 +68,11 @@
 - Generic names do not guarantee generic behavior; current components still assume specific input, hierarchy, physics, and UI choices.
 - Reuse should be validated by a second consumer before extracting a stable package.
 - Prefer several focused capability packages over one universal gameplay framework.
+
+## Automated testing
+
+- An Assembly Definition creates a named compilation boundary and allows a separate test assembly to reference runtime code explicitly.
+- Edit Mode tests suit deterministic C# rules that do not require scenes, frame progression, physics, or NavMesh integration.
+- NUnit `[TestCase]` attributes provide table-style coverage by running one parameterized test with several input and expected-output rows.
+- A test seam must be used by production code; testing a disconnected copy of a rule does not protect gameplay behavior.
+- Unit tests verify isolated policy, while sandbox checks still verify that MonoBehaviour adapters invoke that policy and produce the intended Unity behavior.

@@ -32,6 +32,7 @@ The guiding process remains:
 - Arrival-based investigation scanning.
 - Event-driven enemy state presentation using color and spatial audio cues.
 - Semantic sound stimuli, distance-based enemy hearing, sound-driven investigation, and player landing noise.
+- A runtime assembly boundary and Edit Mode tests for sound-driven enemy state transitions.
 - Player capture, pause, and scene restart.
 - Reorganization of reusable candidates under `Assets/Common`.
 
@@ -55,13 +56,7 @@ one coherent behavior rather than an entire production-ready system.
 
 ## Near-term milestones
 
-### 1. AI logic test seam
-
-- Identify state-transition logic that can be separated from scene components.
-- Add the first lightweight automated tests around that logic.
-- Keep NavMesh and physics integration testing in the sandbox.
-
-### 2. Night Shift vertical-slice kickoff
+### 1. Night Shift vertical-slice kickoff
 
 - Define one small objective-driven scenario.
 - Create a Night Shift scene separate from the movement sandbox.

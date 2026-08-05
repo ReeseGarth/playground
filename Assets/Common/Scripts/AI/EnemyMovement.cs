@@ -187,7 +187,10 @@ public class EnemyMovement : MonoBehaviour
 
     public void Investigate(Vector3 position)
     {
-        if (CurrentState == EnemyState.Chasing)
+        EnemyState nextState =
+            EnemyStateTransitions.AfterSound(CurrentState);
+
+        if (nextState != EnemyState.Investigating)
         {
             return;
         }
