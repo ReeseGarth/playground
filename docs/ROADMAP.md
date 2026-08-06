@@ -34,6 +34,7 @@ The guiding process remains:
 - Semantic sound stimuli, distance-based enemy hearing, sound-driven investigation, and player landing noise.
 - A runtime assembly boundary and Edit Mode tests for sound-driven enemy state transitions.
 - A separate Night Shift vertical-slice scene with independent navigation data, configurable objective copy, and an initial stealth graybox.
+- A first risk-and-extraction loop with required coffee cleanup, optional hazardous residue, provisional pay and rating, and an end-of-shift results panel.
 - Player capture, pause, and scene restart.
 - Reorganization of reusable candidates under `Assets/Common`.
 
@@ -57,7 +58,7 @@ one coherent behavior rather than an entire production-ready system.
 
 ## Near-term milestones
 
-The next product milestone should be selected from playtesting the Night Shift blockout. The first bespoke requirement should strengthen the night-shift fantasy without expanding into several new systems at once.
+The next milestone should introduce the first authored clue and evidence-recovery choice. It should give the containment breach narrative context and make recovered evidence alter the extracted shift result without yet building a full campaign progression system.
 
 ## Longer-term systems
 

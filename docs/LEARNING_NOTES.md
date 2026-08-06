@@ -71,6 +71,9 @@
 - Duplicating a Unity scene copies its asset references; referenced data such as a baked NavMesh must be made independent before either scene is rebaked.
 - A real second consumer reveals hidden assumptions: the Night Shift scene showed that objective state was reusable while objective wording needed per-scene configuration.
 - Graybox geometry should first justify itself through gameplay effects such as collision, navigation, cover, or sight-line control.
+- Product-specific components can remain under `Assets/NightShift` until another genuine consumer clarifies what should move into Common.
+- An immutable result snapshot lets calculation publish one coherent outcome while UI remains responsible only for presentation and end-screen behavior.
+- Extraction can bank partial progress instead of acting as a binary victory gate, creating a risk decision around optional work.
 
 ## Automated testing
 

@@ -222,6 +222,7 @@ The movement sandbox now contains a complete small gameplay loop:
 - semantic sound, enemy hearing, and landing-generated noise
 - Edit Mode tests for a pure enemy state-transition rule
 - a separate Night Shift vertical-slice graybox with independent NavMesh data
+- required and optional cleaning, voluntary extraction, and provisional shift results
 
 Reusable candidates have been reorganized under `Assets/Common`. They are not yet considered stable package APIs.
 

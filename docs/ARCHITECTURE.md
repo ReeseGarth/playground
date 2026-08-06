@@ -31,6 +31,8 @@ Stable cross-project sharing should eventually use focused Unity Package Manager
 
 `Assets/NightShift` is the first product-specific consumer of Common components. Its scene owns its layout and baked NavMesh data independently from the Common movement sandbox. The second consumer exposed hard-coded objective copy, so `ObjectiveTracker` now keeps state logic shared while allowing each scene to serialize its own presentation text.
 
+Night Shift-specific shift flow is composed from `CleanableMess`, `ShiftProgress`, `ShiftResults`, and `ShiftResultsUI`. Cleanable objects publish completion without knowing about contracts. Progress records required and optional work. Extraction through the Common `ExitZone` publishes a fact that causes results to snapshot pay and rating into an immutable `ShiftResult`. UI observes that result and owns presentation, pause, cursor, and restart behavior.
+
 ## Key decisions
 
 ### Character movement
